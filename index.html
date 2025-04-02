@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dad jokes</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        html {
+            color: #fff;
+            font-size: 62.5%;
+        }
+
+        body {
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #1b1b1c;
+        }
+
+        .container {
+            background-color: rgb(255, 255, 256);
+            text-align: center;
+            padding: 2.4rem 6.4rem;
+            border-radius: 0.6rem;
+            color: #000;
+            min-width: 32rem;
+        }
+
+        .api_body {
+            font-size: 1.7rem;
+            letter-spacing: 0.1rem;
+            margin-bottom: 2rem;
+            margin-top: 1rem;
+        }
+
+        button {
+            height: 5rem;
+        }
+
+        h1 {
+            font-size: 3.6rem;
+        }
+
+        hr {
+            margin-bottom: 3.2rem;
+        }
+
+        p,li,button {
+            font-size: 1.7rem;
+            letter-spacing: 0.1rem;
+            font-family: "Urbanist", sans-serif;
+            line-height: 1.6;
+        }
+
+        button {
+            background-color: #f5ee63;
+            padding: 0.6rem 2.4rem;
+            border-radius: 10rem;
+            border: 2px solid #000;
+            margin-right: 3.6rem;
+            cursor: pointer;
+            transition: all 0.3s linear;
+
+            &:hover {
+                box-shadow: inset 0 0 0 0.2rem #f5ee63;
+                background-color: transparent;
+                /* color: #f5ee63; */
+            }
+        };
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome to Dad Jokes!</h1>
+        <section class="api_body"></section>
+        <button id="fetchJoke">Get Another Joke</button>
+    </div>
+
+    <script>
+        const apiBody = document.querySelector(".api_body");
+        const apiUrl = "https://icanhazdadjoke.com/";
+
+        const fetchData = () => {
+           fetch(apiUrl, {
+            headers: {
+                Accept: "application/json",
+            },
+           })
+            .then((res) => {
+                // console.log(res);
+                return res.json();
+            })
+            .then((data) => {
+                // console.log(data.joke);
+                apiBody.innerHTML = data.joke
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+        };
+
+        // Using ASYNC AWAIT Function------
+        // async function fetchData() {
+        //     try {
+        //       const res = await fetch(apiUrl, {
+        //     headers: {
+        //         Accept: "application/json",
+        //     },
+        //    });
+        //       const data = await res.json();
+        //     apiBody.innerHTML = data.joke;
+        //     }catch(error){
+        //         apiBody.innerHTML = error;
+        //         console.log(error);
+        //     }
+        // };
+
+        fetchData();
+
+        document.getElementById("fetchJoke").addEventListener("click", fetchData);
+    </script>
+</body>
+</html>
